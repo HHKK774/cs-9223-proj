@@ -1,0 +1,1 @@
+index,name,ingredient,course_cuisine,flavor,small_image,rating,big_image,ingredient_amount
