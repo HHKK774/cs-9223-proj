@@ -91,7 +91,7 @@
                   </div>
                   
                   <div class="col-lg-12 col-xl-3">
-                    <div class="select-wrap" id = "searching" style="display: ">
+                    <div class="select-wrap" id = "searching" style="visibility: visible; ">
                       <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
                       <select class="form-control" name="" id="">
                         <option value="">All Categories</option>
@@ -105,8 +105,9 @@
                     </div>
                   </div>
                   <div class="col-lg-12 col-xl-2 ml-auto text-left">
-                    <button class="btn btn-primary btn-lg" type="submit" onclick="return goToSample()"><i class="fa fa-search"></i></button>
-                    <a href="search.html" class="btn btn-primary btn-lg" type="submit" onclick="searchPhotofromfile()"><i class="fa fa-camera"></i></a>
+                    <button class="btn btn-primary btn-lg" type="submit" onclick="return goToSample()" id = "searchtext" style = "display:block"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-primary btn-lg" type="submit" onclick="return goToSample()" id = "searchvoice" style = "display:none"><i class="fa fa-camera"></i></button>
+                    <!-- <a href="search.html" class="btn btn-primary btn-lg" type="submit" onclick="searchPhotofromfile()"><i class="fa fa-camera"></i></a> -->
                   </div>
 
                 </div>
@@ -266,10 +267,14 @@
     var search_type = document.querySelector('.option_gender:checked').value;
     if(search_type != "search_text")
     {
-　　  document.getElementById("searching").style.display="none";//隐藏
+　　    document.getElementById("searching").style.visibility="hidden";//隐藏
+        document.getElementById("searchtext").style.display = "none";
+        document.getElementById("searchvoice").style.display = "block";
     }
     else{
-　　    document.getElementById("searching").style.display="";//显
+　　    document.getElementById("searching").style.visibility="visible";//显
+        document.getElementById("searchtext").style.display = "block";
+        document.getElementById("searchvoice").style.display = "none";
     }
 
     var remove_type = (search_type=="search_text")?"search_file":"search_text";
@@ -288,8 +293,6 @@
 
     var para1 = document.createElement("div");
     para1.innerHTML = add_type1;
-    var para2 = document.createElement("div");
-    para2.innerHTML = add_type2;
     document.getElementById("search_content").appendChild(para1);
   });
 
