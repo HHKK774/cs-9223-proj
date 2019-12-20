@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/bootstrap-datepicker.css">
 
     <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="css/aos.css">
     <link rel="stylesheet" href="css/rangeslider.css">
     <link rel="stylesheet" href="css/main.css">
@@ -26,7 +26,6 @@
     
   </head>
   <body>
-  
   <div class="site-wrap">
 
     <div class="site-mobile-menu">
@@ -92,7 +91,7 @@
                   </div>
                   
                   <div class="col-lg-12 col-xl-3">
-                    <div class="select-wrap">
+                    <div class="select-wrap" id = "searching" style="visibility: visible; ">
                       <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
                       <select class="form-control" name="" id="">
                         <option value="">All Categories</option>
@@ -105,9 +104,12 @@
                       </select>
                     </div>
                   </div>
-                  <div class="col-lg-12 col-xl-2 ml-auto text-right">
-                    <a href="search.html" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Search</a>
+                  <div class="col-lg-12 col-xl-2 ml-auto text-left">
+                    <button class="btn btn-primary btn-lg" type="submit" onclick="return goToSample()" id = "searchtext" style = "display:block"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-primary btn-lg" type="submit" onclick="return goToSample()" id = "searchvoice" style = "display:none"><i class="fa fa-camera"></i></button>
+                    <!-- <a href="search.html" class="btn btn-primary btn-lg" type="submit" onclick="searchPhotofromfile()"><i class="fa fa-camera"></i></a> -->
                   </div>
+
                 </div>
 
                 <div class="bs-example">
@@ -119,6 +121,7 @@
                           <input type="radio" name="options" value="search_type" class="option_gender" > Search using file
                       </label>
                     </div>
+
                   </div>
               </form>
             </div>
@@ -228,7 +231,7 @@
       </div>
     </div>
   </div>
-
+  <div id = "showProgress"></div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -262,12 +265,24 @@
   <script>
   $("#selector :input").change(function() {
     var search_type = document.querySelector('.option_gender:checked').value;
+    if(search_type != "search_text")
+    {
+　　    document.getElementById("searching").style.visibility="hidden";//隐藏
+        document.getElementById("searchtext").style.display = "none";
+        document.getElementById("searchvoice").style.display = "block";
+    }
+    else{
+　　    document.getElementById("searching").style.visibility="visible";//显
+        document.getElementById("searchtext").style.display = "block";
+        document.getElementById("searchvoice").style.display = "none";
+    }
+
     var remove_type = (search_type=="search_text")?"search_file":"search_text";
     var add_type = (search_type=="search_text")?"search_text":"search_file";
     if (search_type=="search_text") {
-      add_type = "<input type='text' id = 'search_text' class='form-control' placeholder='What are you looking for?'>";
+      add_type1 = "<input type='text' id = 'search_text' class='form-control' placeholder='What are you looking for?'>";
     } else {
-      add_type = "<input type='file' class='form-control upload' name='search' id='search_file'>";
+      add_type1 = "<input type='file' class='form-control upload' name='search' id='search_file'>";
     }
     try {
       var element = document.getElementById(remove_type);
@@ -276,10 +291,18 @@
       alert(e)
     }
 
-    var para = document.createElement("div");
-    para.innerHTML = add_type;
-    document.getElementById("search_content").appendChild(para);
+    var para1 = document.createElement("div");
+    para1.innerHTML = add_type1;
+    document.getElementById("search_content").appendChild(para1);
   });
+
+  var __waitHTML = '<div style="padding: 20px;"><img src="images/91.gif" /><span style="font-weight: bold;padding-left: 10px; color: #FF66CC;">Waiting......</span></div>';
+ 
+  function goToSample() {
+      $('#showProgress').html(__waitHTML);
+          window.location.href = "search.html";
+          return false;
+      }
   </script>
   </body>
 </html>
